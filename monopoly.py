@@ -1,6 +1,8 @@
 import sys
 from buttons import Button
+from game import Game
 import pygame
+
 
 pygame.init()
 res = [1200, 800]
@@ -11,7 +13,7 @@ board = pygame.image.load("board.png")
 boardrect = board.get_rect()
 button_font = pygame.font.Font(None,30)
 
-button1 = Button('ROLL DICE', (100, 50), (10, 10), 5, button_font)
+button1 = Button('DICE', (100, 50), (10, 10), 5, button_font)
 
 while True:
     for ev in pygame.event.get():
@@ -20,4 +22,10 @@ while True:
     screen.blit(board, (300,70))
     pygame.display.update()
 
-    button1.draw(screen)
+    game = Game(1)
+
+    for i in game.players:
+        button1.draw(screen)
+        print(button1.pressed)
+        if button1.pressed:
+            game.player_turn(i)

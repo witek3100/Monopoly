@@ -6,3 +6,4 @@ class Player:
         self.number = number
         self.money = 0
         self.districts = []
+
