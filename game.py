@@ -25,6 +25,7 @@ class Game:
             for player in self.players:
                 player.draw()
                 if button.action():
-                    player.move(50)
+                    player.move()
+            print(pygame.mouse.get_pos())
             button.draw()
             pygame.display.update()
