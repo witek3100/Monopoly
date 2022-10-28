@@ -1,13 +1,16 @@
 import sys
-
 import pygame
 from button import Button
+from player import Player
 
 
 class Game:
 
+    board_fields_data = [()]
+
     def __init__(self, screen):
         self.screen = screen
+        self.players = [Player(self.screen, num) for num in range(1)]
 
     def game_loop(self):
         board = pygame.image.load("board.xcf")
@@ -19,8 +22,9 @@ class Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
-
             if button.action():
-                print('c')
+                print(self.players)
             button.draw()
+            for player in self.players:
+                player.draw()
             pygame.display.update()
