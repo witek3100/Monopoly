@@ -11,6 +11,7 @@ class Game:
     def __init__(self, screen):
         self.screen = screen
         self.players = [Player(self.screen, num) for num in range(1)]
+        self.objects_to_display = []
 
     def game_loop(self):
         board = pygame.image.load("board.xcf")
@@ -25,7 +26,8 @@ class Game:
             for player in self.players:
                 player.draw()
                 if button.action():
-                    player.move()
-            print(pygame.mouse.get_pos())
+                    self.objects_to_display.append(player.move())
+            for object in self.objects_to_display:
+                self.screen.blit(object, (100, 200))
             button.draw()
             pygame.display.update()
