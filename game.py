@@ -22,9 +22,9 @@ class Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
-            if button.action():
-                print(self.players)
-            button.draw()
             for player in self.players:
                 player.draw()
+                if button.action():
+                    player.move(50)
+            button.draw()
             pygame.display.update()
