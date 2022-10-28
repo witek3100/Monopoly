@@ -1,19 +1,14 @@
 import pygame
-from button import Button
+from menu import Menu
 
 pygame.init()
 res = [1200, 800]
 screen = pygame.display.set_mode(res)
+pygame.display.set_caption("MONOPOLY")
 
-button = Button(screen, (10, 10), (150, 100))
+while True:
+    game = Menu(screen).game
+    game.game_loop()
 
-run = True
-while run:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
 
-    if button.action():
-        print('c')
-    button.draw()
-    pygame.display.update()
+
