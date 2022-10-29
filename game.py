@@ -26,8 +26,8 @@ class Game:
             for player in self.players:
                 player.draw()
                 if button.action():
-                    self.objects_to_display.append(player.move())
+                    self.objects_to_display += player.move()
             for object in self.objects_to_display:
-                self.screen.blit(object, (100, 200))
+                self.screen.blit(object[0], object[1])
             button.draw()
             pygame.display.update()
