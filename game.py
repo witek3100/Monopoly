@@ -14,6 +14,7 @@ class Game:
     def game_loop(self):
         board = pygame.image.load("photos/board.xcf")
         run = True
+        player = self.players[0]
         while run:
             self.screen.fill((0, 100, 0))
             self.screen.blit(board, (300, 70))
@@ -23,14 +24,15 @@ class Game:
                     sys.exit()
 
             self.buttons[0].draw()
-            for player in self.players:
-                player.draw()
-                if self.buttons[0].action():
-                    self.objects_to_display.clear()
-                    self.objects_to_display += player.move()
-                    self.board_fields[player.position].action(player)
-                    self.objects_to_display.append([(pygame.font.SysFont("money_font", 50).render(str(player.money), False, (238,59,59))), (400, 700)])
-
+            player.draw()
+            if self.buttons[0].action():
+                self.objects_to_display.clear()
+                self.objects_to_display += player.move()
+                self.board_fields[player.position].action(player)
+                self.objects_to_display.append([
+                    (pygame.font.SysFont("money_font", 50).render(str(player.money),
+                    False,
+                    (238,59,59))), (400, 700)])
 
             for object in self.objects_to_display:
                 self.screen.blit(object[0], object[1])

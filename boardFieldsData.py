@@ -1,5 +1,5 @@
 fields_data = [
-    ["START", "S1TART", (810, 580)],
+    ["START", "START", (810, 580)],
     ["DF", "ULICA STALOWA", (750, 580)],
     ["chance", "e", (705, 580)],
     ["DF", "e", (660, 580)],

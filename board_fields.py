@@ -37,9 +37,16 @@ class DistrictField(BoardField):
     def __init__(self, screen, name, pos, type):
         super().__init__(screen, name, pos, type)
         self.owner = None
+        self.price = 0
+        self.house_price = 0
+        self.houses = 0
+        self.fees = []
 
     def action(self, player):
         if self.owner == None:
-            print("DF")
+            self.buy_district()
         else:
             pass
+
+    def buy_district(self):
+        pass
