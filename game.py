@@ -8,7 +8,7 @@ class Game:
         self.screen = screen
         self.players = [Player(self.screen, num) for num in range(1)]
         self.objects_to_display = []
-        self.board_fields = [BoardField(self.screen, bf[1], bf[2]) if bf[0] else DistrictField(self.screen, bf[1], bf[2]) for bf in boardFieldsData.fields_data]
+        self.board_fields = [DistrictField(self.screen, bf[1], bf[2], bf[0]) if bf[0] == "DF" else BoardField(self.screen, bf[1], bf[2], bf[0]) for bf in boardFieldsData.fields_data]
         self.buttons = [Button(self.screen, (10, 10), (140, 70), "DICE")]
 
     def game_loop(self):

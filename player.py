@@ -8,13 +8,13 @@ class Player:
         self.screen = screen
         self.number = num
         self.position = 0
+        self.in_jail = 0
 
         self.money = 1500
         self.own_districts = []
 
     def draw(self):
         pygame.draw.rect(self.screen, (255,185,15), (boardFieldsData.fields_data[self.position][2], (20, 20)))
-        pass
 
     def move(self) -> []:
 
@@ -58,3 +58,8 @@ class Player:
             tab.append([pygame.image.load("/home/witek/PycharmProjects/Monopoly/photos/dice6.xcf"), (100, 350)])
 
         return tab
+
+
+    def lock_in_prison(self):
+        self.in_jail += 3
+        self.position = 10
