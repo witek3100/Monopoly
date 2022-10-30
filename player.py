@@ -26,6 +26,8 @@ class Player:
             first_dice = random.randint(1, 6)
             second_dice = random.randint(1, 6)
 
+        if self.position + first_dice + second_dice >= 40:
+            self.money += 200
         self.position = (self.position + first_dice + second_dice) % 40
 
         if first_dice == 1:

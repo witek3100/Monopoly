@@ -10,6 +10,7 @@ class BoardField:
         self.screen = screen
         self.image = pygame.image.load("/home/witek/PycharmProjects/Monopoly/photos/district.jpeg")
         self.area = pygame.Rect(pos, (100, 100))
+        self.type = "fee"
 
     def show_information(self):
         action = False
@@ -20,12 +21,16 @@ class BoardField:
         return action
 
     def action(self, player):
-        player.money -= 100
+        if self.type == "fee":
+            player.money -= 200
+        if self.type == "chance":
+            pass
+        if self.type == "prize":
+            player.money += 500
 
 
 class DistrictField(BoardField):
 
     def __init__(self, screen, name, pos):
         super().__init__(screen, name, pos)
-        self.image = None
-
+        self.ownner = None
