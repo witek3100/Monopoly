@@ -8,8 +8,6 @@ from board_fields import *
 
 class Game:
 
-    board_fields_data = [()]
-
     def __init__(self, screen):
         self.screen = screen
         self.players = [Player(self.screen, num) for num in range(1)]
@@ -18,7 +16,7 @@ class Game:
         self.buttons = [Button(self.screen, (10, 10), (140, 70), "DICE")]
 
     def game_loop(self):
-        board = pygame.image.load("board.xcf")
+        board = pygame.image.load("photos/board.xcf")
         run = True
         while run:
             self.screen.fill((0, 100, 0))
@@ -32,14 +30,14 @@ class Game:
             for player in self.players:
                 player.draw()
                 if self.buttons[0].action():
+                    self.objects_to_display.clear()
                     self.objects_to_display += player.move()
 
             for object in self.objects_to_display:
                 self.screen.blit(object[0], object[1])
 
             for f in self.board_fields:
-                f.button.draw()
-                if f.button.action():
-                    print(f.name)
+                if f.show_data():
+                    self.objects_to_display.append([f.image, (500, 200)])
 
             pygame.display.update()

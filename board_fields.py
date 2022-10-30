@@ -1,5 +1,6 @@
 from player import Player
 from button import Button
+import pygame
 
 class BoardField:
 
@@ -7,10 +8,22 @@ class BoardField:
         self.name = name
         self.position = pos
         self.screen = screen
-        self.button = Button(self.screen, pos, (40, 100), "")
+        self.image = pygame.image.load("/home/witek/PycharmProjects/Monopoly/photos/district.jpeg")
+        self.area = pygame.Rect(pos, (100, 100))
 
     def action(self, player):
         player.money += 10
 
+    def show_data(self):
+        action = False
+        pos = pygame.mouse.get_pos()
+        if self.area.collidepoint(pos):
+            if pygame.mouse.get_pressed()[0] == 1:
+                action = True
+        return action
+
 class DistrictField(BoardField):
-    pass
+
+    def __init__(self, screen, name, pos):
+        super().__init__(screen, name, pos)
+        self.image = None
