@@ -11,10 +11,7 @@ class BoardField:
         self.image = pygame.image.load("/home/witek/PycharmProjects/Monopoly/photos/district.jpeg")
         self.area = pygame.Rect(pos, (100, 100))
 
-    def action(self, player):
-        player.money += 10
-
-    def show_data(self):
+    def show_information(self):
         action = False
         pos = pygame.mouse.get_pos()
         if self.area.collidepoint(pos):
@@ -22,8 +19,13 @@ class BoardField:
                 action = True
         return action
 
+    def action(self, player):
+        player.money -= 100
+
+
 class DistrictField(BoardField):
 
     def __init__(self, screen, name, pos):
         super().__init__(screen, name, pos)
         self.image = None
+
