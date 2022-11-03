@@ -1,5 +1,6 @@
 from player import Player
 from button import Button
+from window import Window
 import pygame
 
 class BoardField:
@@ -23,12 +24,10 @@ class BoardField:
     def action(self, player):
         if self.type == "fee":
             player.money -= 200
-            print("fee")
         if self.type == "chance":
             print("chance")
         if self.type == "prize":
             player.money += 500
-            print("prize")
         if self.type == "jail":
             player.lock_in_prison()
 
@@ -41,12 +40,22 @@ class DistrictField(BoardField):
         self.house_price = 0
         self.houses = 0
         self.fees = []
+        self.color = "red"
 
     def action(self, player):
         if self.owner == None:
-            self.buy_district()
+            buy_win = Window(self.screen, [str(self.name) + " has no owner",  "Would you like to buy it for " + str(self.price) + "?"])
+            if buy_win.action():
+                self.buy_district(player)
         else:
             pass
 
-    def buy_district(self):
-        pass
+    def buy_district(self, player):
+        self.owner = player
+        for i in player.own_districts:
+            if i[0].color == self.color:
+                i.append(self)
+            player.own_districts.append([[self]])
+
+        player.money -= self.price
+        return

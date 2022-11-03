@@ -1,6 +1,7 @@
 import sys
 import boardFieldsData
 from board_fields import *
+from button import Button
 
 class Game:
 
@@ -9,30 +10,36 @@ class Game:
         self.players = [Player(self.screen, num) for num in range(1)]
         self.objects_to_display = []
         self.board_fields = [DistrictField(self.screen, bf[1], bf[2], bf[0]) if bf[0] == "DF" else BoardField(self.screen, bf[1], bf[2], bf[0]) for bf in boardFieldsData.fields_data]
-        self.buttons = [Button(self.screen, (10, 10), (140, 70), "DICE")]
+        self.buttons = [Button(self.screen, (20, 20), (140, 70), "DICE")]
 
     def game_loop(self):
         board = pygame.image.load("photos/board.xcf")
         run = True
         player = self.players[0]
+        mv = True
+        ac = False
         while run:
             self.screen.fill((0, 100, 0))
             self.screen.blit(board, (300, 70))
+
+            self.objects_to_display.append([
+                (pygame.font.SysFont("money_font", 50).render(str(player.money),
+                False,
+                (238, 59, 59))), (200, 700)])
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
 
-            self.buttons[0].draw()
-            player.draw()
-            if self.buttons[0].action():
-                self.objects_to_display.clear()
-                self.objects_to_display += player.move()
-                self.board_fields[player.position].action(player)
-                self.objects_to_display.append([
-                    (pygame.font.SysFont("money_font", 50).render(str(player.money),
-                    False,
-                    (238,59,59))), (400, 700)])
+            for button in self.buttons:
+                button.draw()
+
+            if mv:
+                if self.buttons[0].action():
+                    self.objects_to_display.clear()
+                    self.objects_to_display += player.move(self)
+                    ac = True
+                    mv = False
 
             for object in self.objects_to_display:
                 self.screen.blit(object[0], object[1])
@@ -40,5 +47,17 @@ class Game:
             for f in self.board_fields:
                 if f.show_information():
                     self.objects_to_display.append([f.image, (500, 200)])
+
+            if ac:
+                self.board_fields[player.position].action(player)
+                ac = False
+                mv = True
+
+            player.draw()
+
+            for i, pdr in enumerate(player.own_districts):
+                for j, pdc in enumerate(pdr):
+                    self.objects_to_display.append([pygame.transform.scale(pdc.image, (150, 220)), (500+i*100, 600+j*20)])
+
 
             pygame.display.update()

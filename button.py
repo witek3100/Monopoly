@@ -1,3 +1,5 @@
+import time
+
 import pygame
 
 pygame.font.init()
@@ -10,7 +12,7 @@ class Button:
         self.position = pos
         self.size = size
         self.top_rect = pygame.Rect(self.position[0], self.position[1], self.size[0], self.size[1])
-        self.bottom_rect = pygame.Rect(self.position[0], self.position[1] + 10, self.size[0], self.size[1])
+        self.bottom_rect = pygame.Rect(self.position[0] + 3, self.position[1] + 10, self.size[0], self.size[1])
         self.pressed = False
 
         #colors
@@ -28,8 +30,19 @@ class Button:
 
     def draw(self):
 
-        pygame.draw.rect(self.screen, self.__bottom_rect_color, (self.bottom_rect.topleft, self.bottom_rect.size))
-        pygame.draw.rect(self.screen, self.__top_rect_color, (self.top_rect.topleft, self.top_rect.size))       #screenblit img
+        pygame.draw.circle(self.screen, self.__bottom_rect_color, self.bottom_rect.bottomleft, 10)
+        pygame.draw.circle(self.screen, self.__bottom_rect_color, self.bottom_rect.bottomright, 10)
+        pygame.draw.circle(self.screen, self.__bottom_rect_color, self.bottom_rect.topright, 10)
+        pygame.draw.rect(self.screen, self.__bottom_rect_color, ((self.bottom_rect.topleft[0] - 10, self.bottom_rect.topleft[1]), (self.bottom_rect.size[0] + 20, self.bottom_rect.size[1])))
+        pygame.draw.rect(self.screen, self.__bottom_rect_color, ((self.bottom_rect.topleft[0], self.bottom_rect.topleft[1] - 10), (self.bottom_rect.size[0], self.bottom_rect.size[1] + 20)))
+
+        pygame.draw.circle(self.screen, self.__top_rect_color, self.top_rect.bottomleft, 10)
+        pygame.draw.circle(self.screen, self.__top_rect_color, self.top_rect.bottomright, 10)
+        pygame.draw.circle(self.screen, self.__top_rect_color, self.top_rect.topleft, 10)
+        pygame.draw.circle(self.screen, self.__top_rect_color, self.top_rect.topright, 10)
+        pygame.draw.rect(self.screen, self.__top_rect_color, ((self.top_rect.topleft[0] - 10, self.top_rect.topleft[1]), (self.top_rect.size[0] + 20, self.top_rect.size[1])))
+        pygame.draw.rect(self.screen, self.__top_rect_color, ((self.top_rect.topleft[0], self.top_rect.topleft[1] - 10), (self.top_rect.size[0], self.top_rect.size[1] + 20)))
+
         self.screen.blit(self.__text, (self.position))
 
     def action(self):
@@ -41,8 +54,6 @@ class Button:
             if pygame.mouse.get_pressed()[0] == 1 and self.pressed == False:
                 self.pressed = True
                 action = True
-                self.__bottom_rect_color = self.__top_rect_color
-                self.__top_rect_color = (34,139,34)
         else:
             self.__top_rect_color = self.__top_rect_normal_color
             self.__bottom_rect_color = self.__bottom_rect_normal_color
