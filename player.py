@@ -21,6 +21,7 @@ class Player:
 
         first_dice = random.randint(1,6)
         second_dice = random.randint(1,6)
+
         tab = []
 
         while second_dice == first_dice:

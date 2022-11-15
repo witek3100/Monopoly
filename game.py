@@ -11,6 +11,7 @@ class Game:
         self.objects_to_display = []
         self.board_fields = [DistrictField(self.screen, bf[1], bf[2], bf[0]) if bf[0] == "DF" else BoardField(self.screen, bf[1], bf[2], bf[0]) for bf in boardFieldsData.fields_data]
         self.buttons = [Button(self.screen, (20, 20), (140, 70), "DICE")]
+        self.dices = []
 
     def game_loop(self):
         board = pygame.image.load("photos/board.xcf")
@@ -21,11 +22,7 @@ class Game:
         while run:
             self.screen.fill((0, 100, 0))
             self.screen.blit(board, (300, 70))
-
-            self.objects_to_display.append([
-                (pygame.font.SysFont("money_font", 50).render(str(player.money),
-                False,
-                (238, 59, 59))), (200, 700)])
+            self.screen.blit(pygame.font.SysFont("money_font", 50).render(str(player.money),False,(238, 59, 59)), (200, 700))
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -36,10 +33,12 @@ class Game:
 
             if mv:
                 if self.buttons[0].action():
-                    self.objects_to_display.clear()
                     self.objects_to_display += player.move(self)
                     ac = True
                     mv = False
+
+            for dice in self.dices:
+                self.screen.blit(dice[0], dice[1])
 
             for object in self.objects_to_display:
                 self.screen.blit(object[0], object[1])
@@ -55,9 +54,7 @@ class Game:
 
             player.draw()
 
-            for i, pdr in enumerate(player.own_districts):
-                for j, pdc in enumerate(pdr):
-                    self.objects_to_display.append([pygame.transform.scale(pdc.image, (150, 220)), (500+i*100, 600+j*20)])
-
+            for i, od in enumerate(player.own_districts):
+                self.objects_to_display.append([pygame.transform.scale(od.image, (85, 135)), (400+(i*30), 650)])
 
             pygame.display.update()

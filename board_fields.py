@@ -52,10 +52,6 @@ class DistrictField(BoardField):
 
     def buy_district(self, player):
         self.owner = player
-        for i in player.own_districts:
-            if i[0].color == self.color:
-                i.append(self)
-            player.own_districts.append([[self]])
-
+        player.own_districts.append(self)
         player.money -= self.price
         return
