@@ -11,7 +11,7 @@ class BoardField:
         self.name = name
         self.position = pos
         self.screen = screen
-        self.image = pygame.image.load("/home/witek/PycharmProjects/Monopoly/photos/district.jpeg")
+        self.image = pygame.image.load("/home/witek/PycharmProjects/Monopoly/photos/district.xcf")
         self.area = pygame.Rect(pos, (100, 100))
         self.type = type
 
@@ -42,7 +42,8 @@ class DistrictField(BoardField):
         self.house_price = 0
         self.houses = 0
         self.fees = []
-        self.color = random.choice(['red','blue','green'])
+        self.color = random.choice(['red','blue','green','yellow'])
+        self.image = pygame.image.load("/home/witek/PycharmProjects/Monopoly/photos/"+self.color+"_district.xcf")
 
     def action(self, player):
         if self.owner == None:

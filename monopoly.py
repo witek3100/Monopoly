@@ -10,5 +10,3 @@ while True:
     game = Menu(screen).game
     game.game_loop()
 
-
-
