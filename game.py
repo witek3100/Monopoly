@@ -1,4 +1,7 @@
 import sys
+
+import pygame
+
 import boardFieldsData
 from board_fields import *
 from button import Button
@@ -51,6 +54,9 @@ class Game:
                 self.board_fields[player.position].action(player)
                 ac = False
                 mv = True
+
+            pos = pygame.mouse.get_pos()
+            print(pos)
 
             player.draw()
 
