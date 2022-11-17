@@ -1,3 +1,5 @@
+import random
+
 from player import Player
 from button import Button
 from window import Window
@@ -40,7 +42,7 @@ class DistrictField(BoardField):
         self.house_price = 0
         self.houses = 0
         self.fees = []
-        self.color = "red"
+        self.color = random.choice(['red','blue','green'])
 
     def action(self, player):
         if self.owner == None:
@@ -52,6 +54,10 @@ class DistrictField(BoardField):
 
     def buy_district(self, player):
         self.owner = player
-        player.own_districts.append(self)
+        if self.color in player.own_districts:
+            player.own_districts.get(self.color).append(self)
+        else:
+            player.own_districts[self.color] = [self]
         player.money -= self.price
+        print(player.own_districts)
         return

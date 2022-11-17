@@ -11,7 +11,7 @@ class Player:
         self.in_jail = 0
 
         self.money = 1500
-        self.own_districts = []
+        self.own_districts = {}
 
     def draw(self):
         pygame.draw.rect(self.screen, (255,185,15),

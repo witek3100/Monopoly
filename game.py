@@ -54,7 +54,4 @@ class Game:
 
             player.draw()
 
-            for i, od in enumerate(player.own_districts):
-                self.objects_to_display.append([pygame.transform.scale(od.image, (85, 135)), (400+(i*30), 650)])
-
             pygame.display.update()

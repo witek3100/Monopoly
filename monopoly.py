@@ -2,7 +2,7 @@ import pygame
 from menu import Menu
 
 pygame.init()
-res = [1200, 800]
+res = [1500, 900]
 screen = pygame.display.set_mode(res)
 pygame.display.set_caption("MONOPOLY")
 
