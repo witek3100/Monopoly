@@ -60,5 +60,4 @@ class DistrictField(BoardField):
         else:
             player.own_districts[self.color] = [self]
         player.money -= self.price
-        print(player.own_districts)
         return
