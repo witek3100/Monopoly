@@ -55,9 +55,6 @@ class Game:
                 ac = False
                 mv = True
 
-            pos = pygame.mouse.get_pos()
-            print(pos)
-
             player.draw()
 
             for i, color in enumerate(player.own_districts):

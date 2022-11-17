@@ -14,7 +14,9 @@ class Player:
         self.own_districts = {}
 
     def draw(self):
-        pygame.draw.rect(self.screen, (255,185,15), (boardFieldsData.fields_data[self.position][2][0], (20, 20)))
+        pos_x = boardFieldsData.fields_data[self.position][2][0][0] + (boardFieldsData.fields_data[self.position][2][1][0] / 2)
+        pos_y = boardFieldsData.fields_data[self.position][2][0][1] + (boardFieldsData.fields_data[self.position][2][1][1] / 2)
+        pygame.draw.rect(self.screen, (255,185,15), ((pos_x, pos_y), (20, 20)))
 
     def move(self, game):
 
