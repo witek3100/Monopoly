@@ -35,14 +35,14 @@ class BoardField:
 
 class DistrictField(BoardField):
 
-    def __init__(self, screen, name, pos, type):
+    def __init__(self, screen, name, pos, type, color):
         super().__init__(screen, name, pos, type)
         self.owner = None
         self.price = 0
         self.house_price = 0
         self.houses = 0
         self.fees = []
-        self.color = random.choice(['red','blue','green','yellow'])
+        self.color = color
         self.image = pygame.image.load("/home/witek/PycharmProjects/Monopoly/photos/"+self.color+"_district.xcf")
 
     def action(self, player):
