@@ -12,7 +12,7 @@ class BoardField:
         self.position = pos
         self.screen = screen
         self.image = pygame.image.load("/home/witek/PycharmProjects/Monopoly/photos/district.xcf")
-        self.area = pygame.Rect(pos, (100, 100))
+        self.area = pygame.Rect(pos)
         self.type = type
 
     def show_information(self):
