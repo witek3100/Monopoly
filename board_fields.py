@@ -39,7 +39,7 @@ class DistrictField(BoardField):
         super().__init__(screen, name, pos, type)
         self.owner = None
         self.price = 0
-        self.house_price = 0
+        self.house_price = 50
         self.houses = 0
         self.fees = []
         self.color = color
@@ -68,3 +68,7 @@ class DistrictField(BoardField):
 
     def buy_house(self):
         self.houses += 1
+        self.owner.money -= self.house_price
+
+    def pawn(self):
+        pass

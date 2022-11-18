@@ -95,7 +95,7 @@ class Card_window(Window):
             if self.buttons[0].action():
                 self.district.buy_house()
             if self.buttons[1].action():
-                pass
+                self.district.pawn()
             if self.buttons[2].action():
                 break
 
