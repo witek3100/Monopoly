@@ -68,7 +68,7 @@ class Card_window(Window):
                         Button(self.screen, (self.win_rect.midbottom[0] - 60, self.win_rect.bottomright[1] - 80), (120, 60), "PAWN"),
                         Button(self.screen, (self.win_rect.bottomright[0] - 130, self.win_rect.bottomright[1] - 80), (120, 60), "QUIT")]
         self.buttons[0].active = False
-        self.buttons[1].action = False
+        self.buttons[1].active = False
 
     def action(self):
         self.draw()
@@ -87,7 +87,7 @@ class Card_window(Window):
             if self.district.color in self.player.own_districts:
                 if self.district.owner == self.player:
                     self.buttons[1].active = True
-                    if len(self.player.own_districts.get(self.district.color)) <= self.district.color_dis_am:
+                    if len(self.player.own_districts.get(self.district.color)) == self.district.color_dis_am:
                         self.buttons[0].active = True
 
             for button in self.buttons:
