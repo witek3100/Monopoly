@@ -5,6 +5,8 @@ import pygame
 import boardFieldsData
 from board_fields import *
 from button import Button
+from window import Card_window
+
 
 class Game:
 
@@ -47,8 +49,9 @@ class Game:
                 self.screen.blit(object[0], object[1])
 
             for f in self.board_fields:
-                if f.show_information():
-                    self.objects_to_display.append([f.image, (500, 200)])
+                if f.show_information() and type(f) == DistrictField:
+                    card_win = Card_window(self.screen, [str(f.name) + " information: "], f, player)
+                    card_win.action()
 
             if ac:
                 self.board_fields[player.position].action(player)

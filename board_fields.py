@@ -2,7 +2,7 @@ import random
 
 from player import Player
 from button import Button
-from window import Window
+from window import Window, Buy_district_window
 import pygame
 
 class BoardField:
@@ -43,11 +43,15 @@ class DistrictField(BoardField):
         self.houses = 0
         self.fees = []
         self.color = color
+        if self.color in ['Grecee', 'Switzerland']:
+            self.color_dis_am = 2
+        else:
+            self.color_dis_am = 3
         self.image = pygame.image.load("/home/witek/PycharmProjects/Monopoly/photos/"+self.color+"_district.xcf")
 
     def action(self, player):
         if self.owner == None:
-            buy_win = Window(self.screen, [str(self.name) + " has no owner",  "Would you like to buy it for " + str(self.price) + "?"])
+            buy_win = Buy_district_window(self.screen, [str(self.name) + " has no owner",  "Would you like to buy it for " + str(self.price) + "?"])
             if buy_win.action():
                 self.buy_district(player)
         else:
@@ -61,3 +65,6 @@ class DistrictField(BoardField):
             player.own_districts[self.color] = [self]
         player.money -= self.price
         return
+
+    def buy_house(self):
+        self.houses += 1

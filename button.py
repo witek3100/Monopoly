@@ -14,12 +14,14 @@ class Button:
         self.top_rect = pygame.Rect(self.position[0], self.position[1], self.size[0], self.size[1])
         self.bottom_rect = pygame.Rect(self.position[0] + 3, self.position[1] + 10, self.size[0], self.size[1])
         self.pressed = False
+        self.active = True
 
         #colors
         self.__top_rect_normal_color = (24,116,205)
         self.__top_rect_hovered_color = (30,144,255)
         self.__bottom_rect_normal_color = (16,78,139)
         self.__bottom_rect_hovered_color = (28,134,238)
+        self.__not_active_color = (131,139,139)
 
         self.__top_rect_color = self.__top_rect_normal_color
         self.__bottom_rect_color = self.__bottom_rect_normal_color
@@ -48,16 +50,19 @@ class Button:
     def action(self):
         action = False
         pos = pygame.mouse.get_pos()
-        if self.top_rect.collidepoint(pos):
-            self.__top_rect_color = self.__top_rect_hovered_color
-            self.__bottom_rect_color = self.__bottom_rect_hovered_color
-            if pygame.mouse.get_pressed()[0] == 1 and self.pressed == False:
-                self.pressed = True
-                action = True
+        if not self.active:
+            self.__top_rect_color = self.__not_active_color
+            self.__bottom_rect_color = self.__not_active_color
         else:
-            self.__top_rect_color = self.__top_rect_normal_color
-            self.__bottom_rect_color = self.__bottom_rect_normal_color
-        if pygame.mouse.get_pressed()[0] == 0:
-            self.pressed = False
-
+            if self.top_rect.collidepoint(pos):
+                self.__top_rect_color = self.__top_rect_hovered_color
+                self.__bottom_rect_color = self.__bottom_rect_hovered_color
+                if pygame.mouse.get_pressed()[0] == 1 and self.pressed == False:
+                    self.pressed = True
+                    action = True
+            else:
+                self.__top_rect_color = self.__top_rect_normal_color
+                self.__bottom_rect_color = self.__bottom_rect_normal_color
+            if pygame.mouse.get_pressed()[0] == 0:
+                self.pressed = False
         return action
