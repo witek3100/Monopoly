@@ -14,7 +14,7 @@ class Game:
         self.screen = screen
         self.players = [Player(self.screen, num) for num in range(1)]
         self.objects_to_display = []
-        self.board_fields = [DistrictField(self.screen, bf[1], bf[2], bf[0], bf[3]) if bf[0] == "DF" else BoardField(self.screen, bf[1], bf[2], bf[0]) for bf in boardFieldsData.fields_data]
+        self.board_fields = [DistrictField(self, bf[1], bf[2], bf[0], bf[3]) if bf[0] == "DF" else BoardField(self.screen, bf[1], bf[2], bf[0]) for bf in boardFieldsData.fields_data]
         self.buttons = [Button(self.screen, (20, 20), (140, 70), "DICE")]
         self.dices = []
 
@@ -49,9 +49,10 @@ class Game:
                 self.screen.blit(object[0], object[1])
 
             for f in self.board_fields:
-                if f.show_information() and type(f) == DistrictField:
-                    card_win = Card_window(self.screen, [str(f.name) + " information: "], f, player)
-                    card_win.action()
+                if type(f) == DistrictField:
+                    if f.show_information():
+                        card_win = Card_window(self.screen, [str(f.name) + " information: "], f, player)
+                        card_win.action()
 
             if ac:
                 self.board_fields[player.position].action(player)
@@ -63,5 +64,9 @@ class Game:
             for i, color in enumerate(player.own_districts):
                 for j, dc in enumerate(player.own_districts[color]):
                     self.objects_to_display.append([pygame.transform.scale(dc.image, (85, 135)), (400 + (i * 60), 650 + (j * 30))])
+
+            player.own_districts['Poland'] = [self.board_fields[16],self.board_fields[18],self.board_fields[19]]
+            for i in player.own_districts.get('Poland'):
+                i.owner = player
 
             pygame.display.update()

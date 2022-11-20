@@ -7,12 +7,12 @@ import pygame
 
 class BoardField:
 
-    def __init__(self, screen, name, pos, type):
+    def __init__(self, game, name, pos, type):
         self.name = name
         self.position = pos
-        self.screen = screen
+        self.game = game
         self.image = pygame.image.load("/home/witek/PycharmProjects/Monopoly/photos/district.xcf")
-        self.area = pygame.Rect(pos)
+        self.area = pygame.Rect(self.position)
         self.type = type
 
     def show_information(self):
@@ -51,7 +51,7 @@ class DistrictField(BoardField):
 
     def action(self, player):
         if self.owner == None:
-            buy_win = Buy_district_window(self.screen, [str(self.name) + " has no owner",  "Would you like to buy it for " + str(self.price) + "?"])
+            buy_win = Buy_district_window(self.game.screen, [str(self.name) + " has no owner",  "Would you like to buy it for " + str(self.price) + "?"])
             if buy_win.action():
                 self.buy_district(player)
         else:
@@ -65,6 +65,7 @@ class DistrictField(BoardField):
             player.own_districts[self.color] = [self]
         player.money -= self.price
         return
+        self.game.objects_to_display.append(pygame.Rect(self.position[0][0], self.position[0][1], self.position[1][0], self.position[1][1]), (self.position[1][0], self.position[1][1]))
 
     def buy_house(self):
         self.houses += 1
