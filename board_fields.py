@@ -54,8 +54,6 @@ class DistrictField(BoardField):
             buy_win = Buy_district_window(self.game.screen, [str(self.name) + " has no owner",  "Would you like to buy it for " + str(self.price) + "?"])
             if buy_win.action():
                 self.buy_district(player)
-        else:
-            pass
 
     def buy_district(self, player):
         self.owner = player

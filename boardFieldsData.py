@@ -1,4 +1,5 @@
-fields_data = [["START", "START", ((790, 560),(70, 70))],
+fields_data = \
+    (["START", "START", ((790, 560),(70, 70))],
     ["DF", "Saloniki", ((745, 560),(45, 70)), 'Greece'],
     ["chance", "chance", ((700, 560),(45, 70))],
     ["DF", "Ateny", ((655, 560),(45, 70)), 'Greece'],
@@ -38,4 +39,4 @@ fields_data = [["START", "START", ((790, 560),(70, 70))],
     ["DF","Zurich", ((785, 420), (70, 45)), 'Switzerland'],
     ["fee","fee", ((785, 465), (70, 45))],
     ["DF","Genewa", ((785, 510), (70, 45)), 'Switzerland'],
-]
+               )
