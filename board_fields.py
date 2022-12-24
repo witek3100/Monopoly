@@ -64,8 +64,7 @@ class DistrictField(BoardField):
         else:
             player.own_districts[self.color] = [self]
         player.money -= self.price
-        return
-        self.game.objects_to_display.append(pygame.Rect(self.position[0][0], self.position[0][1], self.position[1][0], self.position[1][1]), (self.position[1][0], self.position[1][1]))
+        return [pygame.Rect(self.position[0][0], self.position[0][1], self.position[1][0], self.position[1][1]), (self.position[1][0], self.position[1][1])]
 
     def buy_house(self):
         self.houses += 1
